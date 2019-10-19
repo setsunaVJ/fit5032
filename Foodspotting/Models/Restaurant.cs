@@ -11,8 +11,7 @@ namespace Foodspotting.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Restaurant
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,24 +22,11 @@ namespace Foodspotting.Models
         }
     
         public int ReId { get; set; }
-        [Required]
-        [Display(Name="Name")]
         public string Name { get; set; }
-        [Required]
-        [Display(Name = "Phone")]
         public string Phone { get; set; }
-        [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
         public string email { get; set; }
-        [Required]
-        [Display(Name = "Postcode")]
         public string postcode { get; set; }
-        [Required]
-        [Display(Name = "Latitude")]
         public decimal latitude { get; set; }
-        [Required]
-        [Display(Name = "Longitude")]
         public decimal longitude { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

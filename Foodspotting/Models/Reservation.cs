@@ -11,14 +11,23 @@ namespace Foodspotting.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Reservation
     {
         public string UserID { get; set; }
+        [Required]
+        [Display(Name ="Restaurant ID")]
         public int ReId { get; set; }
         public int ReserId { get; set; }
+        [Required]
+        [Display(Name = "Reservation Date")]
         public System.DateTime Date { get; set; }
+        [Required]
+        [Display(Name = "Number of Seats")]
         public string Seat { get; set; }
+        [Required]
+        [Display(Name = "Details")]
         public string reser_description { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }

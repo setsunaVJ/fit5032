@@ -51,7 +51,7 @@
           <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ReId" Type="int" Nullable="false" />
           <Property Name="ReserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="Seat" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="reser_description" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -227,7 +227,7 @@
           <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ReId" Type="Int32" Nullable="false" />
           <Property Name="ReserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Seat" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="reser_description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="AspNetUser" Relationship="FoodspottingModel.FK__Reservati__UserI__47DBAE45" FromRole="Reservation" ToRole="AspNetUser" />

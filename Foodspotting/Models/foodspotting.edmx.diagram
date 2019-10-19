@@ -10,7 +10,7 @@
         <EntityTypeShape EntityType="FoodspottingModel.Restaurant" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
         <AssociationConnector Association="FoodspottingModel.FK__Recommenda__ReId__3A81B327" ManuallyRouted="false" />
         <EntityTypeShape EntityType="FoodspottingModel.AspNetUser" Width="1.5" PointX="5.375" PointY="1" />
-        <EntityTypeShape EntityType="FoodspottingModel.Reservation" Width="1.5" PointX="7.625" PointY="1.875" />
+        <EntityTypeShape EntityType="FoodspottingModel.Reservation" Width="1.5" PointX="7.625" PointY="1.875" IsExpanded="true" />
         <AssociationConnector Association="FoodspottingModel.FK__Reservati__UserI__47DBAE45" />
         <AssociationConnector Association="FoodspottingModel.FK__Reservatio__ReId__3E52440B" />
       </Diagram>

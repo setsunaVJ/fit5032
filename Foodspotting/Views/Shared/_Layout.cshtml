@@ -28,9 +28,14 @@
                     <li>@Html.ActionLink("Restaurant", "Index", "Restaurants")</li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        if (! User.IsInRole("Admin") && !User.IsInRole("Owner"))
+                        if (! User.IsInRole("Admin"))
                         {
-                            <li>@Html.ActionLink("Reservation", "Index", "Home")</li>
+                            if (User.IsInRole("Owner")) { 
+                                <li>@Html.ActionLink("Reservation", "OwnerIndex", "Reservations")</li>}
+                            else
+                            {
+                                <li>@Html.ActionLink("Reservation", "Index", "Reservations")</li>
+                            }
                         }
                     }
                 </ul>

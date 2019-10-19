@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Foodspotting.Models.Reservation>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@if (! User.IsInRole("Owner")){
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Seat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.reser_description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AspNetUser.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Restaurant.Name)
+            </th>
+            <th></th>
+        </tr>
+    <thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Seat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.reser_description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Restaurant.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ReserId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ReserId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ReserId })
+                </td>
+            </tr>
+        }
+    <tbody>
+</table>
+@section Scripts {
+    @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+    @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+    <script src="~/Scripts/DataTables/buttons.print.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.table').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'print'
+                ]
+            });
+        });</script>
+}
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
