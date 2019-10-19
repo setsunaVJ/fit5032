@@ -1,0 +1,360 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FoodspottingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonalInfo">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recommendation">
+          <Key>
+            <PropertyRef Name="RecId" />
+          </Key>
+          <Property Name="RecId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReId" Type="int" Nullable="false" />
+          <Property Name="category" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="price" Type="numeric" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Reservation">
+          <Key>
+            <PropertyRef Name="ReserId" />
+          </Key>
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ReId" Type="int" Nullable="false" />
+          <Property Name="ReserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Seat" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="reser_description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Restaurant">
+          <Key>
+            <PropertyRef Name="ReId" />
+          </Key>
+          <Property Name="ReId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="postcode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="latitude" Type="numeric" Precision="10" Scale="8" Nullable="false" />
+          <Property Name="longitude" Type="numeric" Precision="11" Scale="8" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Recommenda__ReId__3A81B327">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Recommendation" Type="Self.Recommendation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="ReId" />
+            </Principal>
+            <Dependent Role="Recommendation">
+              <PropertyRef Name="ReId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reservati__UserI__47DBAE45">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reservatio__ReId__3E52440B">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="ReId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="ReId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FoodspottingModelStoreContainer">
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PersonalInfo" EntityType="Self.PersonalInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recommendation" EntityType="Self.Recommendation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reservation" EntityType="Self.Reservation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Restaurant" EntityType="Self.Restaurant" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Recommenda__ReId__3A81B327" Association="Self.FK__Recommenda__ReId__3A81B327">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="Recommendation" EntitySet="Recommendation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reservati__UserI__47DBAE45" Association="Self.FK__Reservati__UserI__47DBAE45">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reservatio__ReId__3E52440B" Association="Self.FK__Reservatio__ReId__3E52440B">
+            <End Role="Restaurant" EntitySet="Restaurant" />
+            <End Role="Reservation" EntitySet="Reservation" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FoodspottingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PersonalInfo">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recommendation">
+          <Key>
+            <PropertyRef Name="RecId" />
+          </Key>
+          <Property Name="RecId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReId" Type="Int32" Nullable="false" />
+          <Property Name="category" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Restaurant" Relationship="Self.FK__Recommenda__ReId__3A81B327" FromRole="Recommendation" ToRole="Restaurant" />
+        </EntityType>
+        <EntityType Name="Restaurant">
+          <Key>
+            <PropertyRef Name="ReId" />
+          </Key>
+          <Property Name="ReId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="postcode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="latitude" Type="Decimal" Precision="10" Scale="8" Nullable="false" />
+          <Property Name="longitude" Type="Decimal" Precision="11" Scale="8" Nullable="false" />
+          <NavigationProperty Name="Recommendations" Relationship="Self.FK__Recommenda__ReId__3A81B327" FromRole="Restaurant" ToRole="Recommendation" />
+          <NavigationProperty Name="Reservations" Relationship="FoodspottingModel.FK__Reservatio__ReId__3E52440B" FromRole="Restaurant" ToRole="Reservation" />
+        </EntityType>
+        <Association Name="FK__Recommenda__ReId__3A81B327">
+          <End Role="Restaurant" Type="Self.Restaurant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Recommendation" Type="Self.Recommendation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="ReId" />
+            </Principal>
+            <Dependent Role="Recommendation">
+              <PropertyRef Name="ReId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="foodspotting" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PersonalInfoes" EntityType="Self.PersonalInfo" />
+          <EntitySet Name="Recommendations" EntityType="Self.Recommendation" />
+          <EntitySet Name="Restaurants" EntityType="Self.Restaurant" />
+          <AssociationSet Name="FK__Recommenda__ReId__3A81B327" Association="Self.FK__Recommenda__ReId__3A81B327">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="Recommendation" EntitySet="Recommendations" />
+          </AssociationSet>
+          <EntitySet Name="AspNetUsers" EntityType="FoodspottingModel.AspNetUser" />
+          <EntitySet Name="Reservations" EntityType="FoodspottingModel.Reservation" />
+          <AssociationSet Name="FK__Reservati__UserI__47DBAE45" Association="FoodspottingModel.FK__Reservati__UserI__47DBAE45">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Reservation" EntitySet="Reservations" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reservatio__ReId__3E52440B" Association="FoodspottingModel.FK__Reservatio__ReId__3E52440B">
+            <End Role="Restaurant" EntitySet="Restaurants" />
+            <End Role="Reservation" EntitySet="Reservations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Reservations" Relationship="FoodspottingModel.FK__Reservati__UserI__47DBAE45" FromRole="AspNetUser" ToRole="Reservation" />
+        </EntityType>
+        <EntityType Name="Reservation">
+          <Key>
+            <PropertyRef Name="ReserId" />
+          </Key>
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ReId" Type="Int32" Nullable="false" />
+          <Property Name="ReserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Seat" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="reser_description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AspNetUser" Relationship="FoodspottingModel.FK__Reservati__UserI__47DBAE45" FromRole="Reservation" ToRole="AspNetUser" />
+          <NavigationProperty Name="Restaurant" Relationship="FoodspottingModel.FK__Reservatio__ReId__3E52440B" FromRole="Reservation" ToRole="Restaurant" />
+        </EntityType>
+        <Association Name="FK__Reservati__UserI__47DBAE45">
+          <End Type="FoodspottingModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="FoodspottingModel.Reservation" Role="Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reservatio__ReId__3E52440B">
+          <End Type="FoodspottingModel.Restaurant" Role="Restaurant" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="FoodspottingModel.Reservation" Role="Reservation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Restaurant">
+              <PropertyRef Name="ReId" />
+            </Principal>
+            <Dependent Role="Reservation">
+              <PropertyRef Name="ReId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FoodspottingModelStoreContainer" CdmEntityContainer="foodspotting">
+          <EntitySetMapping Name="PersonalInfoes">
+            <EntityTypeMapping TypeName="FoodspottingModel.PersonalInfo">
+              <MappingFragment StoreEntitySet="PersonalInfo">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recommendations">
+            <EntityTypeMapping TypeName="FoodspottingModel.Recommendation">
+              <MappingFragment StoreEntitySet="Recommendation">
+                <ScalarProperty Name="RecId" ColumnName="RecId" />
+                <ScalarProperty Name="ReId" ColumnName="ReId" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="description" ColumnName="description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Restaurants">
+            <EntityTypeMapping TypeName="FoodspottingModel.Restaurant">
+              <MappingFragment StoreEntitySet="Restaurant">
+                <ScalarProperty Name="ReId" ColumnName="ReId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="postcode" ColumnName="postcode" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="FoodspottingModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reservations">
+            <EntityTypeMapping TypeName="FoodspottingModel.Reservation">
+              <MappingFragment StoreEntitySet="Reservation">
+                <ScalarProperty Name="reser_description" ColumnName="reser_description" />
+                <ScalarProperty Name="Seat" ColumnName="Seat" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ReserId" ColumnName="ReserId" />
+                <ScalarProperty Name="ReId" ColumnName="ReId" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

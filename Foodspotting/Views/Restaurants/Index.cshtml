@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Foodspotting.Models.Restaurant>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>    }
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.postcode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.latitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.longitude)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.postcode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.latitude)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.longitude)
+                </td>
+                <td>
+                    @if (User.IsInRole("Owner"))
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ReId })}|
+                    @Html.ActionLink("Details", "Details", new { id = item.ReId }) |
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ReId })}
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section Scripts {
+    @Scripts.Render("~/Scripts/DataTables/jquery.dataTables.js")
+    @Scripts.Render("~/Scripts/DataTables/dataTables.bootstrap.js")
+    <script src="~/Scripts/DataTables/buttons.print.min.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.buttons.min.js"></script>
+    <script>$(document).ready(function () {
+            $('.table').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'print'
+                ]
+            });
+        });</script>
+}
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
